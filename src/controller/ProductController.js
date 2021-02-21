@@ -16,7 +16,11 @@ export const ProductController = ({ productService }) => {
   });
 
   routes.get('/api/products/:id', async function (req, res) {
-    return res.json(await productService.findById(req.params.id));
+    const product = await productService.findById(req.params.id);
+    if (product) {
+      return res.json(product);
+    }
+    return res.status(404).send('Not found!');
   });
 
   routes.delete('/api/products/:id', async function (req, res) {

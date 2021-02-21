@@ -20,7 +20,10 @@ export const ProductRepository = ({}) => ({
 
   async findById (id) {
     const product = await ProductEntity.findById(id);
-    return fullProductMapper(product);
+    if (product) {
+      return fullProductMapper(product);
+    }
+    return false;
   },
 
   async deleteById (id) {
