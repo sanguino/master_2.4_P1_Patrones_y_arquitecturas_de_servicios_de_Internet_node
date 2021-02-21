@@ -16,8 +16,8 @@ const productUseCase = ProductUseCase({productRepository});
 const productService = ProductService({productUseCase});
 const productController = ProductController({productService});
 
-const cartRepository = CartRepository({});
-const cartUseCase = CartUseCase({cartRepository});
+const cartRepository = CartRepository({productRepository});
+const cartUseCase = CartUseCase({cartRepository, productRepository});
 const cartService = CartService({cartUseCase});
 const cartController = CartController({cartService});
 
