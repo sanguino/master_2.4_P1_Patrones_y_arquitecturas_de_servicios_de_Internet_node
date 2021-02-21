@@ -1,4 +1,5 @@
 import {ExpressServer} from "./ExpressServer.js";
+import {mongoConnect} from "./MongoInterface.js";
 
 import {ProductRepository} from "./infrastructure/ProductRepository.js";
 import {ProductUseCase} from "./domain/ProductUseCase.js";
@@ -12,5 +13,6 @@ const productController = ProductController({productService});
 const server = ExpressServer({productController});
 
 
+await mongoConnect();
 
 server.listen(8080, () => console.log('Server listening on port 8080!'));
