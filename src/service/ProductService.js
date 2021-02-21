@@ -1,5 +1,5 @@
-export const ProductService = ({}) => ({
+export const ProductService = ({productUseCase}) => ({
   getAllProducts () {
-    return [];
+    return productUseCase.findAll();
   }
 });

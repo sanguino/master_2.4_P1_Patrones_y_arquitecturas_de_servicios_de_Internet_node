@@ -1,8 +1,10 @@
 import {ExpressServer} from "./ExpressServer.js";
+import {ProductUseCase} from "./domain/ProductUseCase.js";
 import {ProductService} from "./service/ProductService.js";
 import {ProductController} from "./controller/ProductController.js";
 
-const productService = ProductService({});
+const productUseCase = ProductUseCase({});
+const productService = ProductService({productUseCase});
 const productController = ProductController({productService});
 const server = ExpressServer({productController});
 
