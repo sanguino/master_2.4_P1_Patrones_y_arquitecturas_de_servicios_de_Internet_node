@@ -24,6 +24,14 @@ export const CartController = ({ cartService }) => {
     return res.status(404).send('Not found!');
   });
 
+  routes.delete('/api/shoppingcarts/:id', async function (req, res) {
+    const cart = await cartService.deleteById(req.params.id);
+    if (cart) {
+      return res.json(cart);
+    }
+    return res.status(204).send('No content!');
+  });
+
   return routes;
 }
 

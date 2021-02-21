@@ -34,4 +34,13 @@ export const CartRepository = ({}) => ({
     return false;
   },
 
+  async deleteById(id) {
+    const cart = await CartEntity.findById(id);
+    if (cart) {
+      cart.delete();
+      return fullCartMapper(cart);
+    }
+    return false;
+  },
+
 });

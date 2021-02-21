@@ -20,4 +20,8 @@ export const CartUseCase = ({cartRepository}) => ({
     return await cartRepository.findById(id);
   },
 
+  async deleteById (id) {
+    return await cartRepository.deleteById(id);
+  },
+
 });

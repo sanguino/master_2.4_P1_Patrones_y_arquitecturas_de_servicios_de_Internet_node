@@ -12,4 +12,8 @@ export const CartService = ({cartUseCase}) => ({
     return await cartUseCase.findById(id);
   },
 
+  async deleteById (id) {
+    return await cartUseCase.deleteById(id);
+  },
+
 });
