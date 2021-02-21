@@ -1,5 +1,5 @@
-export const ProductUseCase = ({}) => ({
+export const ProductUseCase = ({productRepository}) => ({
   findAll () {
-    return [];
+    return productRepository.findAll();
   }
 });
