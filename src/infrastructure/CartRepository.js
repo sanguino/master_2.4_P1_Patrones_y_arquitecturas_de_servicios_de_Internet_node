@@ -2,7 +2,7 @@ import {CartEntity} from "./entities/CartEntity.js";
 
 export const CartRepository = ({productRepository}) => {
 
-  const mapProducts = async products => {
+  const mapIds2Products = async products => {
     const fullProducts = new Map();
     for (let [prodId, quantity] of products) {
       fullProducts.set(await productRepository.findById(prodId), quantity)
@@ -11,10 +11,18 @@ export const CartRepository = ({productRepository}) => {
   };
 
   const fullCartMapper = async cartEntity => ({
-    id: cartEntity._id,
-    products: await mapProducts(cartEntity.products),
+    id: cartEntity._id.toString(),
+    products: await mapIds2Products(cartEntity.products),
     finalized: cartEntity.finalized
   });
+
+  const mapProducts2Ids = products => {
+    const idsProducts = new Map();
+    for (let [product, quantity] of products) {
+      idsProducts.set(product.id, quantity)
+    }
+    return idsProducts;
+  };
 
   return {
     async save(cart) {
@@ -34,7 +42,7 @@ export const CartRepository = ({productRepository}) => {
     async update(cart) {
       const cartEntity = await CartEntity.findById(cart.id);
       if (cartEntity) {
-        cartEntity.products = cart.products;
+        cartEntity.products = mapProducts2Ids(cart.products);
         cartEntity.finalized = cart.finalized;
         await cartEntity.save();
         return await fullCartMapper(cartEntity);

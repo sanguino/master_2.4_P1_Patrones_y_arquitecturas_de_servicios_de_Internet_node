@@ -1,7 +1,7 @@
 import {ProductEntity} from "./entities/ProductEntity.js";
 
 const fullProductMapper = (productEntity => ({
-  id: productEntity._id,
+  id: productEntity._id.toString(),
   name: productEntity.name,
   price: productEntity.price
 }))

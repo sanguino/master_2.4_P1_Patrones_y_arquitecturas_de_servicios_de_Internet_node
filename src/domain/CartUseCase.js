@@ -28,7 +28,7 @@ export const CartUseCase = ({cartRepository, productRepository}) => ({
     const cart = await cartRepository.findById(cartId);
     const product = await productRepository.findById(prodId);
     if (cart && product) {
-      cart.products.set(prodId, prodQuantity)
+      cart.products.set(product, prodQuantity);
       return await cartRepository.update(cart);
     }
     return false
