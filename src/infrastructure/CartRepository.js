@@ -15,4 +15,23 @@ export const CartRepository = ({}) => ({
     return fullCartMapper(cartSaved);
   },
 
+  async findById(id) {
+    const cart = await CartEntity.findById(id);
+    if (cart) {
+      return fullCartMapper(cart);
+    }
+    return false;
+  },
+
+  async update(cart) {
+    const cartEntity = await CartEntity.findById(cart.id);
+    if (cartEntity) {
+      cartEntity.products = cart.products;
+      cartEntity.finalized = cart.finalized;
+      await cartEntity.save();
+      return fullCartMapper(cartEntity);
+    }
+    return false;
+  },
+
 });

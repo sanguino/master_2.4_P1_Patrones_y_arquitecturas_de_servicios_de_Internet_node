@@ -8,6 +8,22 @@ export const CartController = ({ cartService }) => {
     return res.json(cart);
   });
 
+  routes.patch('/api/shoppingcarts/:id', async function (req, res) {
+    const cart = await cartService.finalizeById(req.params.id);
+    if (cart) {
+      return res.json(cart);
+    }
+    return res.status(404).send('Not found!');
+  });
+
+  routes.get('/api/shoppingcarts/:id', async function (req, res) {
+    const cart = await cartService.findById(req.params.id);
+    if (cart) {
+      return res.json(cart);
+    }
+    return res.status(404).send('Not found!');
+  });
+
   return routes;
 }
 

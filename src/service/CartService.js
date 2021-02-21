@@ -4,4 +4,12 @@ export const CartService = ({cartUseCase}) => ({
     return await cartUseCase.save();
   },
 
+  async finalizeById (id) {
+    return await cartUseCase.finalizeById(id);
+  },
+
+  async findById (id) {
+    return await cartUseCase.findById(id);
+  },
+
 });
