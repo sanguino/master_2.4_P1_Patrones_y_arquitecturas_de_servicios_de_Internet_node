@@ -6,11 +6,22 @@ import {ProductUseCase} from "./domain/ProductUseCase.js";
 import {ProductService} from "./service/ProductService.js";
 import {ProductController} from "./controller/ProductController.js";
 
+import {CartRepository} from "./infrastructure/CartRepository.js";
+import {CartUseCase} from "./domain/CartUseCase.js";
+import {CartService} from "./service/CartService.js";
+import {CartController} from "./controller/CartController.js";
+
 const productRepository = ProductRepository({});
 const productUseCase = ProductUseCase({productRepository});
 const productService = ProductService({productUseCase});
 const productController = ProductController({productService});
-const server = ExpressServer({productController});
+
+const cartRepository = CartRepository({});
+const cartUseCase = CartUseCase({cartRepository});
+const cartService = CartService({cartUseCase});
+const cartController = CartController({cartService});
+
+const server = ExpressServer({productController, cartController});
 
 
 await mongoConnect();
