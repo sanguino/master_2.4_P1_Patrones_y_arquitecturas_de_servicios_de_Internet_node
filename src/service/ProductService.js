@@ -9,5 +9,10 @@ export const ProductService = ({productUseCase}) => ({
 
   async findById (id) {
     return await productUseCase.findById(id);
-  }
+  },
+
+  async deleteById (id) {
+    return await productUseCase.deleteById(id);
+  },
+
 });

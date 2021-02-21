@@ -19,6 +19,10 @@ export const ProductController = ({ productService }) => {
     return res.json(await productService.findById(req.params.id));
   });
 
+  routes.delete('/api/products/:id', async function (req, res) {
+    return res.json(await productService.deleteById(req.params.id));
+  });
+
   return routes;
 }
 

@@ -10,5 +10,10 @@ export const ProductUseCase = ({productRepository}) => ({
 
   async findById (id) {
     return await productRepository.findById(id);
-  }
+  },
+
+  async deleteById (id) {
+    return await productRepository.deleteById(id);
+  },
+
 });
