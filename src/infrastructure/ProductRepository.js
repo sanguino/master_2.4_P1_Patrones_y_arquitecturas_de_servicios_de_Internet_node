@@ -16,5 +16,10 @@ export const ProductRepository = ({}) => ({
     const productSaved = new ProductEntity(product);
     await productSaved.save();
     return fullProductMapper(productSaved);
+  },
+
+  async findById (id) {
+    const product = await ProductEntity.findById(id);
+    return fullProductMapper(product);
   }
 });

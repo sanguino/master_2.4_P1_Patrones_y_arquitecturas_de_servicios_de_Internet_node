@@ -12,10 +12,12 @@ export const ProductController = ({ productService }) => {
       name: req.body.name,
       price: req.body.price
     });
-    console.log(product)
     return res.json(product);
   });
 
+  routes.get('/api/products/:id', async function (req, res) {
+    return res.json(await productService.findById(req.params.id));
+  });
 
   return routes;
 }

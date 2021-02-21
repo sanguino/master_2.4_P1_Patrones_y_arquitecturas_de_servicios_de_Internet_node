@@ -5,5 +5,9 @@ export const ProductService = ({productUseCase}) => ({
 
   async save (product) {
     return await productUseCase.save(product);
+  },
+
+  async findById (id) {
+    return await productUseCase.findById(id);
   }
 });
