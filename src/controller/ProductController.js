@@ -12,7 +12,7 @@ export const ProductController = ({ productService }) => {
       name: req.body.name,
       price: req.body.price
     });
-    return res.json(product);
+    return res.status(201).json(product);
   });
 
   routes.get('/api/products/:id', async function (req, res) {

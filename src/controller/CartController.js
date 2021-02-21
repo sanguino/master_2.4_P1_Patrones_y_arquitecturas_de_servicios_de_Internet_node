@@ -20,7 +20,7 @@ export const CartController = ({cartService}) => {
 
   routes.post('/api/shoppingcarts', async function (req, res) {
     const cart = await cartService.save();
-    return res.json(cart);
+    return res.status(201).json(cart);
   });
 
   routes.patch('/api/shoppingcarts/:id', async function (req, res) {
