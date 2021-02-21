@@ -1,5 +1,5 @@
 export const ProductUseCase = ({productRepository}) => ({
-  findAll () {
-    return productRepository.findAll();
+  async findAll () {
+    return await productRepository.findAll();
   }
 });

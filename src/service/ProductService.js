@@ -1,5 +1,5 @@
 export const ProductService = ({productUseCase}) => ({
-  getAllProducts () {
-    return productUseCase.findAll();
+  async getAllProducts () {
+    return await productUseCase.findAll();
   }
 });
