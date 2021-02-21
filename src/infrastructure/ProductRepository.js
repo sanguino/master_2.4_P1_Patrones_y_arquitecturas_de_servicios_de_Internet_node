@@ -28,8 +28,11 @@ export const ProductRepository = ({}) => ({
 
   async deleteById (id) {
     const product = await ProductEntity.findById(id);
-    product.delete();
-    return fullProductMapper(product);
+    if (product) {
+      await product.delete();
+      return fullProductMapper(product);
+    }
+    return false;
   },
 
 });

@@ -24,7 +24,11 @@ export const ProductController = ({ productService }) => {
   });
 
   routes.delete('/api/products/:id', async function (req, res) {
-    return res.json(await productService.deleteById(req.params.id));
+    const product = await productService.deleteById(req.params.id);
+    if (product) {
+      return res.json(product);
+    }
+    return res.status(204).send('No content!');
   });
 
   return routes;
