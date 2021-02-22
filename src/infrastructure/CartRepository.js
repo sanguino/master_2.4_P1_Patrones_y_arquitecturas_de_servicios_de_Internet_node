@@ -26,9 +26,10 @@ export const CartRepository = ({productRepository}) => {
 
   return {
     async save(cart) {
-      const cartSaved = new CartEntity(cart);
-      await cartSaved.save();
-      return await fullCartMapper(cartSaved);
+      const cartEntity = new CartEntity(cart);
+      await cartEntity.save();
+      const fullCart = await fullCartMapper(cartEntity);
+      return fullCart;
     },
 
     async findById(id) {
