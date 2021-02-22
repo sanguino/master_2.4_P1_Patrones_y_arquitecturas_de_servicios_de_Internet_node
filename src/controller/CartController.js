@@ -6,6 +6,7 @@ const cartResponseMapper = cart => {
     productsResponse.push({
       id: product.id,
       name: product.name,
+      price: product.price,
       quantity
     });
   }
