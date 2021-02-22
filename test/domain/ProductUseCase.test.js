@@ -20,11 +20,11 @@ describe('when create product', async () => {
   it('then save is called and fullProductDto is returned', async () => {
     const name = "p1";
     const price = 1;
-    sandbox.stub(productRepository, 'save').returns({id:1, name, price});
+    sandbox.stub(productRepository, 'save').resolves({id:1, name, price});
 
     const response = await productUseCase.save({name, price});
 
-    expect(productRepository.save.calledOnce);
+    expect(productRepository.save.calledOnce).to.be.true;
     expect(response.name).to.equal(name);
     expect(response.price).to.equal(price);
 
@@ -34,13 +34,13 @@ describe('when create product', async () => {
 describe('when delete product', async () => {
   it('and product exists then delete is called and fullProductDto is returned', async () => {
     const id = 1;
-    sandbox.stub(productRepository, 'findById').returns({id});
+    sandbox.stub(productRepository, 'findById').resolves({id});
     sandbox.stub(productRepository, 'delete');
 
     const response = await productUseCase.deleteById(id);
 
-    expect(productRepository.findById.calledOnce);
-    expect(productRepository.delete.calledOnce);
+    expect(productRepository.findById.calledOnce).to.be.true;
+    expect(productRepository.delete.calledOnce).to.be.true;
     expect(response.id).to.equal(id);
   });
 
@@ -51,8 +51,8 @@ describe('when delete product', async () => {
 
     const response = await productUseCase.deleteById(id);
 
-    expect(productRepository.findById.calledOnce);
-    expect(productRepository.delete.notCalled);
+    expect(productRepository.findById.calledOnce).to.be.true;
+    expect(productRepository.delete.notCalled).to.be.true;
     expect(response).to.equal(false);
   });
 });
