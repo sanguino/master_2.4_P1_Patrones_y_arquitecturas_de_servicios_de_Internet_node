@@ -28,13 +28,9 @@ export const ProductRepository = ({}) => ({
     return false;
   },
 
-  async deleteById(id) {
-    const productEntityDto = await ProductEntity.findById(id);
-    if (productEntityDto) {
-      await productEntityDto.delete();
-      return productEntityDto2FullProductDtoMapper(productEntityDto);
-    }
-    return false;
+  async delete(product) {
+    const productEntityDto = await ProductEntity.findById(product.id);
+    await productEntityDto.delete();
   },
 
 });

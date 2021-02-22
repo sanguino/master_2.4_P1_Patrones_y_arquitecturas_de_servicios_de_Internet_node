@@ -4,8 +4,8 @@ export const ProductUseCase = ({productRepository}) => ({
     return await productRepository.findAll();
   },
 
-  async save(fullProduct) {
-    const product = {...fullProduct};
+  async save(fullProductDto) {
+    const product = {...fullProductDto};
     return await productRepository.save(product);
   },
 
@@ -14,7 +14,12 @@ export const ProductUseCase = ({productRepository}) => ({
   },
 
   async deleteById(id) {
-    return await productRepository.deleteById(id);
+    const fullProductDto = await this.findById(id);
+    if (fullProductDto) {
+      await productRepository.delete(fullProductDto)
+      return fullProductDto;
+    }
+    return false;
   },
 
 });
