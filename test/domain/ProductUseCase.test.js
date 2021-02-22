@@ -32,7 +32,7 @@ describe('when create product', async () => {
 });
 
 describe('when delete product', async () => {
-  it('and product exists then delete is called and fullProductDto is returned', async () => {
+  it('and product exists, then delete is called and fullProductDto is returned', async () => {
     const id = 1;
     sandbox.stub(productRepository, 'findById').resolves({id});
     sandbox.stub(productRepository, 'delete');
@@ -44,7 +44,7 @@ describe('when delete product', async () => {
     expect(response.id).to.equal(id);
   });
 
-  it('and product not exists then delete is not called and false is returned', async () => {
+  it('and product not exists, then delete is not called and false is returned', async () => {
     const id = 1;
     sandbox.stub(productRepository, 'findById').returns(false);
     sandbox.stub(productRepository, 'delete');
