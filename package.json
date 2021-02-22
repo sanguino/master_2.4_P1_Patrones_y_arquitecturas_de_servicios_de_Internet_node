@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon src/app.js"
+    "test": "mocha",
+    "start": "node src/app.js"
   },
   "repository": {
     "type": "git",
@@ -17,13 +17,15 @@
     "url": "https://github.com/sanguino/master_2.4_P1_Patrones_y_arquitecturas_de_servicios_de_Internet_node/issues"
   },
   "homepage": "https://github.com/sanguino/master_2.4_P1_Patrones_y_arquitecturas_de_servicios_de_Internet_node#readme",
+  "type": "module",
   "dependencies": {
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
     "mongoose": "5.11.15"
   },
-  "type": "module",
   "devDependencies": {
-    "nodemon": "^2.0.7"
+    "chai": "^4.3.0",
+    "mocha": "^8.3.0",
+    "sinon": "^9.2.4"
   }
 }
