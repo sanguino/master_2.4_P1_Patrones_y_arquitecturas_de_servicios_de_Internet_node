@@ -16,8 +16,8 @@ export const CartService = ({cartUseCase}) => ({
     return await cartUseCase.deleteById(id);
   },
 
-  async addProduct(cartId, prodId, prodQuantity) {
-    return await cartUseCase.addProduct(cartId, prodId, prodQuantity);
+  async addOrUpdateProduct(cartId, prodId, prodQuantity) {
+    return await cartUseCase.addOrUpdateProduct(cartId, prodId, prodQuantity);
   },
 
   async removeProduct(cartId, prodId) {

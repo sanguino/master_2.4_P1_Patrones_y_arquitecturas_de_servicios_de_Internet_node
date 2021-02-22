@@ -53,7 +53,7 @@ export const CartController = ({cartService}) => {
   });
 
   routes.post('/api/shoppingcarts/:cartId/product/:prodId/quantity/:prodQuantity', async function (req, res) {
-    const cart = await cartService.addProduct(req.params.cartId, req.params.prodId, req.params.prodQuantity);
+    const cart = await cartService.addOrUpdateProduct(req.params.cartId, req.params.prodId, req.params.prodQuantity);
     if (cart) {
       const responseCart = cartResponseMapper(cart);
       return res.json(responseCart);

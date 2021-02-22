@@ -24,7 +24,7 @@ export const CartUseCase = ({cartRepository, productRepository}) => ({
     return await cartRepository.deleteById(id);
   },
 
-  async addProduct(cartId, prodId, prodQuantity) {
+  async addOrUpdateProduct(cartId, prodId, prodQuantity) {
     const cart = await cartRepository.findById(cartId);
     const product = await productRepository.findById(prodId);
     if (cart && product) {
