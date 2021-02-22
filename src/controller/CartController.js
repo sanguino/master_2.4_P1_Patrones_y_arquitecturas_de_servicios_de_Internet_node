@@ -61,6 +61,15 @@ export const CartController = ({cartService}) => {
     return res.status(404).send('Not found!');
   });
 
+  routes.delete('/api/shoppingcarts/:cartId/product/:prodId', async function (req, res) {
+    const cart = await cartService.removeProduct(req.params.cartId, req.params.prodId);
+    if (cart) {
+      const responseCart = cartResponseMapper(cart);
+      return res.json(responseCart);
+    }
+    return res.status(404).send('Not found!');
+  });
+
   return routes;
 }
 

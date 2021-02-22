@@ -20,4 +20,8 @@ export const CartService = ({cartUseCase}) => ({
     return await cartUseCase.addProduct(cartId, prodId, prodQuantity);
   },
 
+  async removeProduct(cartId, prodId) {
+    return await cartUseCase.removeProduct(cartId, prodId);
+  },
+
 });

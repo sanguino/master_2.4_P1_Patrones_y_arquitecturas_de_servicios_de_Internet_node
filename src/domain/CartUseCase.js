@@ -31,7 +31,19 @@ export const CartUseCase = ({cartRepository, productRepository}) => ({
       cart.products.set(product, prodQuantity);
       return await cartRepository.update(cart);
     }
-    return false
+    return false;
+  },
+
+  async removeProduct(cartId, prodId) {
+    const cart = await cartRepository.findById(cartId);
+    if (cart) {
+      const product = Array.from(cart.products.keys()).find(p => p.id === prodId);
+      if (product) {
+        cart.products.delete(product);
+        return await cartRepository.update(cart);
+      }
+    }
+    return false;
   },
 
 });
