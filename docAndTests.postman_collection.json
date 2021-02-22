@@ -1,0 +1,1031 @@
+{
+	"info": {
+		"_postman_id": "220d1d31-c997-4943-9400-c98bce8a4eb6",
+		"name": "MASTER_2.4_ECOMMERCE",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "DOC",
+			"item": [
+				{
+					"name": "get all products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/products",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create product",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Producto1\",\n    \"price\": 43.23\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/products",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get product by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/products/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"products",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete product",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/products/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"products",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create cart",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/shoppingcarts",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"shoppingcarts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get cart by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/shoppingcarts/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"shoppingcarts",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "finalize cart by id",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/shoppingcarts/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"shoppingcarts",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete cart by id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/shoppingcarts/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"shoppingcarts",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add product to cart",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/shoppingcarts/1/product/1/quantity/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"shoppingcarts",
+								"1",
+								"product",
+								"1",
+								"quantity",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "remove product from cart",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/shoppingcarts/1/product/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"shoppingcarts",
+								"1",
+								"product",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "test",
+			"item": [
+				{
+					"name": "create product 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test(\"check book data\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.name).to.eql(\"Producto1\");",
+									"    pm.expect(jsonData.price).to.eql(43.23);",
+									"});",
+									"",
+									"pm.collectionVariables.set(\"prodId1\", pm.response.json().id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Producto1\",\n    \"price\": 43.23\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/products",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create product 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test(\"check book data\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.name).to.eql(\"Producto2\");",
+									"    pm.expect(jsonData.price).to.eql(128.12);",
+									"});",
+									"",
+									"pm.collectionVariables.set(\"prodId2\", pm.response.json().id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Producto2\",\n    \"price\": 128.12\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/products",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create product 3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test(\"check book data\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.name).to.eql(\"Producto3\");",
+									"    pm.expect(jsonData.price).to.eql(68.99);",
+									"});",
+									"",
+									"pm.collectionVariables.set(\"prodId3\", pm.response.json().id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Producto3\",\n    \"price\": 68.99\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/products",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all products",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"check products ids\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData[jsonData.length -3].id).to.eql(pm.collectionVariables.get(\"prodId1\"));",
+									"    pm.expect(jsonData[jsonData.length -2].id).to.eql(pm.collectionVariables.get(\"prodId2\"));",
+									"    pm.expect(jsonData[jsonData.length -1].id).to.eql(pm.collectionVariables.get(\"prodId3\"));",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/products",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get product 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"check products id\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.id).to.eql(pm.collectionVariables.get(\"prodId1\"));",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/products/{{prodId1}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"products",
+								"{{prodId1}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete product 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/products/{{prodId1}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"products",
+								"{{prodId1}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete product 1 - 204",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {",
+									"    pm.response.to.have.status(204);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/products/{{prodId1}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"products",
+								"{{prodId1}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get product 1 - 404",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {",
+									"    pm.response.to.have.status(404);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/products/{{prodId1}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"products",
+								"{{prodId1}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create cart",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test(\"check book data\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.finalized).to.eql(false);",
+									"    pm.expect(jsonData.products.length).to.eql(0);",
+									"});",
+									"",
+									"pm.collectionVariables.set(\"cartId\", pm.response.json().id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/shoppingcarts",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"shoppingcarts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get cart by id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"check book data\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.id).to.eql(pm.collectionVariables.get(\"cartId\"));",
+									"    pm.expect(jsonData.finalized).to.eql(false);",
+									"    pm.expect(jsonData.products.length).to.eql(0);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/shoppingcarts/{{cartId}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"shoppingcarts",
+								"{{cartId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add product 2 to cart",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"check book data\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.id).to.eql(pm.collectionVariables.get(\"cartId\"));",
+									"    pm.expect(jsonData.products.length).to.eql(1);",
+									"    pm.expect(jsonData.products[0].id).to.eql(pm.collectionVariables.get(\"prodId2\"));",
+									"    pm.expect(jsonData.products[0].name).to.eql(\"Producto2\");",
+									"    pm.expect(jsonData.products[0].price).to.eql(128.12);",
+									"    pm.expect(jsonData.products[0].quantity).to.eql(2);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/shoppingcarts/{{cartId}}/product/{{prodId2}}/quantity/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"shoppingcarts",
+								"{{cartId}}",
+								"product",
+								"{{prodId2}}",
+								"quantity",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add product 3 to cart",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"check book data\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.id).to.eql(pm.collectionVariables.get(\"cartId\"));",
+									"    pm.expect(jsonData.products.length).to.eql(2);",
+									"    let pos;",
+									"    if (jsonData.products[0].id === pm.collectionVariables.get(\"prodId3\")) {",
+									"        pos = 0;",
+									"    } else if (jsonData.products[1].id === pm.collectionVariables.get(\"prodId3\")) {",
+									"        pos = 1;",
+									"    } else {",
+									"        pm.expect(true).to.eql(false);",
+									"    }",
+									"",
+									"    pm.expect(jsonData.products[pos].id).to.eql(pm.collectionVariables.get(\"prodId3\"));",
+									"    pm.expect(jsonData.products[pos].name).to.eql(\"Producto3\");",
+									"    pm.expect(jsonData.products[pos].price).to.eql(68.99);",
+									"    pm.expect(jsonData.products[pos].quantity).to.eql(12);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/shoppingcarts/{{cartId}}/product/{{prodId3}}/quantity/12",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"shoppingcarts",
+								"{{cartId}}",
+								"product",
+								"{{prodId3}}",
+								"quantity",
+								"12"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update product 3 quantity",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"check book data\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.id).to.eql(pm.collectionVariables.get(\"cartId\"));",
+									"    pm.expect(jsonData.products.length).to.eql(2);",
+									"    if (jsonData.products[0].id === pm.collectionVariables.get(\"prodId3\")) {",
+									"        pm.expect(jsonData.products[0].quantity).to.eql(6);",
+									"    } else if (jsonData.products[1].id === pm.collectionVariables.get(\"prodId3\")) {",
+									"        pm.expect(jsonData.products[1].quantity).to.eql(6);",
+									"    } else {",
+									"        pm.expect(true).to.eql(false);",
+									"    }",
+									"    ",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/shoppingcarts/{{cartId}}/product/{{prodId3}}/quantity/6",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"shoppingcarts",
+								"{{cartId}}",
+								"product",
+								"{{prodId3}}",
+								"quantity",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "finalize cart by id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"check book data\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.finalized).to.eql(true);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/shoppingcarts/{{cartId}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"shoppingcarts",
+								"{{cartId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "remove product3 from cart",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"check book data\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.id).to.eql(pm.collectionVariables.get(\"cartId\"));",
+									"    pm.expect(jsonData.products.length).to.eql(1);",
+									"    pm.expect(jsonData.products[0].id).to.eql(pm.collectionVariables.get(\"prodId2\"));",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/shoppingcarts/{{cartId}}/product/{{prodId3}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"shoppingcarts",
+								"{{cartId}}",
+								"product",
+								"{{prodId3}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "remove product3 - 404",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {",
+									"    pm.response.to.have.status(404);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/shoppingcarts/{{cartId}}/product/{{prodId3}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"shoppingcarts",
+								"{{cartId}}",
+								"product",
+								"{{prodId3}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete cart1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"check book data\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.id).to.eql(pm.collectionVariables.get(\"cartId\"));",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/shoppingcarts/{{cartId}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"shoppingcarts",
+								"{{cartId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete cart1 - 204",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {",
+									"    pm.response.to.have.status(204);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/shoppingcarts/{{cartId}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"shoppingcarts",
+								"{{cartId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "prodId1",
+			"value": ""
+		},
+		{
+			"key": "prodId3",
+			"value": ""
+		},
+		{
+			"key": "prodId2",
+			"value": ""
+		},
+		{
+			"key": "cartId",
+			"value": ""
+		}
+	]
+}
