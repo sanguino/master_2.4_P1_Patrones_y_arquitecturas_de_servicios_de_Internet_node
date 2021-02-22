@@ -22,8 +22,6 @@ const cartService = CartService({cartUseCase});
 const cartController = CartController({cartService});
 
 const server = ExpressServer({productController, cartController});
-
-
 await mongoConnect();
 
 server.listen(8080, () => console.log('Server listening on port 8080!'));

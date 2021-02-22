@@ -1,46 +1,50 @@
 export const CartUseCase = ({cartRepository, productRepository}) => ({
 
   async save() {
-    return await cartRepository.save({
+    const cart = {
       products: new Map(),
       finalized: false,
-    });
+    };
+    return await cartRepository.save(cart);
   },
 
   async finalizeById(id) {
-    const cart = await this.findById(id);
-    if (cart) {
-      cart.finalized = true;
-      return await cartRepository.update(cart)
+    const fullCartDto = await cartRepository.findById(id);
+    if (fullCartDto) {
+      fullCartDto.finalized = true;
+      return await cartRepository.update(fullCartDto)
     }
     return false;
   },
 
   async findById(id) {
-    return await cartRepository.findById(id);
+    const fullCartDto = await cartRepository.findById(id);
+    return fullCartDto;
   },
 
   async deleteById(id) {
-    return await cartRepository.deleteById(id);
+    const fullCartDto = await cartRepository.deleteById(id);
+    return fullCartDto;
   },
 
   async addOrUpdateProduct(cartId, prodId, prodQuantity) {
-    const cart = await cartRepository.findById(cartId);
-    const product = await productRepository.findById(prodId);
-    if (cart && product) {
-      cart.products.set(product, prodQuantity);
-      return await cartRepository.update(cart);
+    const fullCartDto = await cartRepository.findById(cartId);
+    const fullProductDto = await productRepository.findById(prodId);
+    if (fullCartDto && fullProductDto) {
+      fullCartDto.products.delete(fullProductDto);
+      fullCartDto.products.set(fullProductDto, prodQuantity);
+      return await cartRepository.update(fullCartDto);
     }
     return false;
   },
 
   async removeProduct(cartId, prodId) {
-    const cart = await cartRepository.findById(cartId);
-    if (cart) {
-      const product = Array.from(cart.products.keys()).find(p => p.id === prodId);
-      if (product) {
-        cart.products.delete(product);
-        return await cartRepository.update(cart);
+    const fullCartDto = await cartRepository.findById(cartId);
+    if (fullCartDto) {
+      const fullProductDto = Array.from(fullCartDto.products.keys()).find(p => p.id === prodId);
+      if (fullProductDto) {
+        fullCartDto.products.delete(fullProductDto);
+        return await cartRepository.update(fullCartDto);
       }
     }
     return false;

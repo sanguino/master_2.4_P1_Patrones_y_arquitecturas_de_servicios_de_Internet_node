@@ -1,18 +1,19 @@
 export const ProductUseCase = ({productRepository}) => ({
 
-  async findAll () {
+  async findAll() {
     return await productRepository.findAll();
   },
 
-  async save (product) {
+  async save(fullProduct) {
+    const product = {...fullProduct};
     return await productRepository.save(product);
   },
 
-  async findById (id) {
+  async findById(id) {
     return await productRepository.findById(id);
   },
 
-  async deleteById (id) {
+  async deleteById(id) {
     return await productRepository.deleteById(id);
   },
 

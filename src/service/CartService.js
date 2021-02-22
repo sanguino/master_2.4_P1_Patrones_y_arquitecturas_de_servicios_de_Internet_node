@@ -1,18 +1,18 @@
 export const CartService = ({cartUseCase}) => ({
 
-  async save () {
+  async save() {
     return await cartUseCase.save();
   },
 
-  async finalizeById (id) {
+  async finalizeById(id) {
     return await cartUseCase.finalizeById(id);
   },
 
-  async findById (id) {
+  async findById(id) {
     return await cartUseCase.findById(id);
   },
 
-  async deleteById (id) {
+  async deleteById(id) {
     return await cartUseCase.deleteById(id);
   },
 

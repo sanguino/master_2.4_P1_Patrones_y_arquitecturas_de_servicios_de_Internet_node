@@ -2,62 +2,66 @@ import {CartEntity} from "./entities/CartEntity.js";
 
 export const CartRepository = ({productRepository}) => {
 
-  const mapIds2Products = async products => {
-    const fullProducts = new Map();
-    for (let [prodId, quantity] of products) {
-      fullProducts.set(await productRepository.findById(prodId), quantity)
+  async function productsIds2FullProductsDtoMapper(productsIds) {
+    const fullProductDtos = new Map();
+    for (let [prodId, quantity] of productsIds) {
+      fullProductDtos.set(await productRepository.findById(prodId), quantity)
     }
-    return fullProducts;
-  };
+    return fullProductDtos;
+  }
 
-  const fullCartMapper = async cartEntity => ({
-    id: cartEntity._id.toString(),
-    products: await mapIds2Products(cartEntity.products),
-    finalized: cartEntity.finalized
-  });
-
-  const mapProducts2Ids = products => {
-    const idsProducts = new Map();
-    for (let [product, quantity] of products) {
-      idsProducts.set(product.id, quantity)
+  async function cartEntitiesDto2fullCartDtoMapper(cartEntityDto) {
+    return {
+      id: cartEntityDto._id.toString(),
+      products: await productsIds2FullProductsDtoMapper(cartEntityDto.products),
+      finalized: cartEntityDto.finalized
     }
-    return idsProducts;
-  };
+  }
+
+  function fullProductsDto2ProductsIdsMapper(fullProductDtos) {
+    const productsIds = new Map();
+    for (let [product, quantity] of fullProductDtos) {
+      productsIds.set(product.id, quantity)
+    }
+    return productsIds;
+  }
 
   return {
     async save(cart) {
-      const cartEntity = new CartEntity(cart);
-      await cartEntity.save();
-      const fullCart = await fullCartMapper(cartEntity);
-      return fullCart;
+      const cartEntityDto = new CartEntity(cart);
+      await cartEntityDto.save();
+      const fullCartDto = await cartEntitiesDto2fullCartDtoMapper(cartEntityDto);
+      return fullCartDto;
     },
 
     async findById(id) {
-      const cart = await CartEntity.findById(id);
-      if (cart) {
-        return await fullCartMapper(cart);
+      const cartEntityDto = await CartEntity.findById(id);
+      if (cartEntityDto) {
+        const fullCartDto = await cartEntitiesDto2fullCartDtoMapper(cartEntityDto);
+        return fullCartDto;
       }
       return false;
     },
 
-    async update(cart) {
-      const cartEntity = await CartEntity.findById(cart.id);
-      if (cartEntity) {
-        cartEntity.products = mapProducts2Ids(cart.products);
-        cartEntity.finalized = cart.finalized;
-        await cartEntity.save();
-        return await fullCartMapper(cartEntity);
+    async update(fullCartDto) {
+      const cartEntityDto = await CartEntity.findById(fullCartDto.id);
+      if (cartEntityDto) {
+        cartEntityDto.products = fullProductsDto2ProductsIdsMapper(fullCartDto.products);
+        cartEntityDto.finalized = fullCartDto.finalized;
+        await cartEntityDto.save();
+        return await cartEntitiesDto2fullCartDtoMapper(cartEntityDto);
       }
       return false;
     },
 
     async deleteById(id) {
-      const cart = await CartEntity.findById(id);
-      if (cart) {
-        cart.delete();
-        return await fullCartMapper(cart);
+      const cartEntityDto = await CartEntity.findById(id);
+      if (cartEntityDto) {
+        cartEntityDto.delete();
+        return await cartEntitiesDto2fullCartDtoMapper(cartEntityDto);
       }
       return false;
     },
+
   }
 };

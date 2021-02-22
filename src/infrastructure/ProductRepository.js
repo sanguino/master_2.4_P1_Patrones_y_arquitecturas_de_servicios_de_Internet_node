@@ -1,36 +1,38 @@
 import {ProductEntity} from "./entities/ProductEntity.js";
 
-const fullProductMapper = (productEntity => ({
-  id: productEntity._id.toString(),
-  name: productEntity.name,
-  price: productEntity.price
-}))
+function productEntityDto2FullProductDtoMapper(productEntityDto) {
+  return {
+    id: productEntityDto._id.toString(),
+    name: productEntityDto.name,
+    price: productEntityDto.price
+  }
+}
 
 export const ProductRepository = ({}) => ({
   async findAll() {
     const products = await ProductEntity.find();
-    return products.map(fullProductMapper);
+    return products.map(productEntityDto2FullProductDtoMapper);
   },
 
   async save(product) {
-    const productSaved = new ProductEntity(product);
-    await productSaved.save();
-    return fullProductMapper(productSaved);
+    const productEntityDto = new ProductEntity(product);
+    await productEntityDto.save();
+    return productEntityDto2FullProductDtoMapper(productEntityDto);
   },
 
-  async findById (id) {
-    const product = await ProductEntity.findById(id);
-    if (product) {
-      return fullProductMapper(product);
+  async findById(id) {
+    const productEntityDto = await ProductEntity.findById(id);
+    if (productEntityDto) {
+      return productEntityDto2FullProductDtoMapper(productEntityDto);
     }
     return false;
   },
 
-  async deleteById (id) {
-    const product = await ProductEntity.findById(id);
-    if (product) {
-      await product.delete();
-      return fullProductMapper(product);
+  async deleteById(id) {
+    const productEntityDto = await ProductEntity.findById(id);
+    if (productEntityDto) {
+      await productEntityDto.delete();
+      return productEntityDto2FullProductDtoMapper(productEntityDto);
     }
     return false;
   },
